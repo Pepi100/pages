@@ -24,3 +24,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.range-track {
+  height: 8px;
+  background: gray;
+  border-radius: 4px;
+  width: 80%;
+  margin: auto;
+}
+
+.range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: #007bff;
+}
