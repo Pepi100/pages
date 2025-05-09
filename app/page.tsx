@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Range } from 'react-range';
 import { VALUE_STEPS, toSinoKorean} from './constants';
+import ToggleSwitch from './components/ToggleSwitch'; // adjust path if needed
 
 
 export default function Home() {
@@ -12,6 +13,16 @@ export default function Home() {
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(1);
   const [random, setRandom] = useState(0);
+  const [userInput, setUserInput] = useState('');
+  const [feedback, setFeedback] = useState('');
+  const [selectedValue, setSelectedValue] = useState<string>("2"); // Initial value
+
+
+
+
+  // const handleOptionChange = (e) => {
+  //   setSelectedOption(e.target.value);
+  // };
 
   // Function to handle changes in the range
   const handleChange = (newValues: number[]) => {
@@ -32,21 +43,34 @@ export default function Home() {
     while(newRandom == old)
       newRandom = Math.floor(Math.random() * (max - min + 1) + min);
 
-    console.log(newRandom)
     setRandom(newRandom);
 
     
   };
 
+  const handleInputChange = (e) => {
+    
+    setUserInput(e.target.value);
+  };
+
+  const checkAnswer = () => {
+    
+    const input_format = userInput.replace(/\s+/g, '');
+    if(toSinoKorean(random) == input_format )
+      setFeedback('Correct!');
+    else{
+      setFeedback('Incorrect, the answer was ' + toSinoKorean(random))
+    }
+  
+  };
+
   return (
     <main style={{ fontSize: '2rem', textAlign: 'center', marginTop: '2rem' }}>
-    <p>{random}</p>
-  
-    <br />
-    <div style={{ marginTop: '20px' }}>
-      <label>Choose Range: </label>
-      <Range
-        values={[minValue, maxValue]}
+    <p className="main-number-mobile" >{random}</p>
+
+    <div className="menu-mobile">
+      
+      <Range values={[minValue, maxValue]}
         step={1}
         min={0}
         max={5}
@@ -55,30 +79,53 @@ export default function Home() {
           <div {...props} className='range-track'>
             {children}
           </div>
-        )}
+        )}  
         renderThumb={({ props }) => (
           <div {...props} className='range-thumb'/>
         )}
       />
+      <p>Range: {VALUE_STEPS[minValue]} to {VALUE_STEPS[maxValue]}</p>
+      
+      <div className='buttons-mobile'>
+      <ToggleSwitch 
+        numberOne="1"
+        numberTwo="2"
+        optionOneText="Option 1 selected"
+        optionTwoText="Option 2 selected"
+        onToggleChange={generateRandomValue}  // Pass the callback
+      />
+      <ToggleSwitch 
+        numberOne="1"
+        numberTwo="2"
+        optionOneText="Option 1 selected"
+        optionTwoText="Option 2 selected"
+        onToggleChange={generateRandomValue}  // Pass the callback
+      />
+      </div>
+
+      
     </div>
   
-    <p>Range: {VALUE_STEPS[minValue]} to {VALUE_STEPS[maxValue]}</p>
-  
-    <button onClick={generateRandomValue}>Generate New</button>
+      
   
     <div style={{ marginTop: '30px' }}>
-      <label>
-        <input type="radio" name="option" value="option1" defaultChecked />
-        Option 1
-      </label>
-      <br />
-      <label>
-        <input type="radio" name="option" value="option2" />
-        Option 2
-      </label>
-      <br /><br />
-      <input type="text" placeholder="Type something..." style={{ fontSize: '1rem', padding: '0.5rem' }} />
+
+      <input
+          type="text"
+          placeholder="Type your answer..."
+          value={userInput}
+          onChange={handleInputChange}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              checkAnswer();
+            }
+          }}
+          style={{ fontSize: '1rem', padding: '0.5rem' }}
+        />
+        <p style={{ marginTop: '10px', color: feedback.includes('Correct') ? 'green' : 'red' }}></p>
+        
     </div>
+  
   </main>
   
   );
