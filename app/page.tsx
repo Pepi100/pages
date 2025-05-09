@@ -48,10 +48,10 @@ export default function Home() {
     
   };
 
-  const handleInputChange = (e) => {
-    
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
   };
+  
 
   const checkAnswer = () => {
     
