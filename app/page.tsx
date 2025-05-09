@@ -15,7 +15,7 @@ export default function Home() {
   const [random, setRandom] = useState(0);
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
-  const [selectedValue, setSelectedValue] = useState<string>("2"); // Initial value
+  // const [selectedValue, setSelectedValue] = useState<string>("2"); // Initial value
 
 
 
