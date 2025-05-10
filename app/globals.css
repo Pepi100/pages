@@ -140,8 +140,7 @@ body {
 
   .menu-mobile .buttons-mobile{
     display: flex;
-    gap: 1rem;
-    justify-content: space-between;
+    justify-content: space-around;
     
   }
 
