@@ -7,25 +7,18 @@ import ToggleSwitch from './components/ToggleSwitch'; // adjust path if needed
 
 
 export default function Home() {
-  // Immutable array of possible values
-
-
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(1);
-  const [random, setRandom] = useState(0);
+  const [random, setRandom] = useState(-1);
+
+  const [sino, setSino] = useState(1);
+  const [numberToKorean, setNumberToKorean] = useState(1);
+
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
-  // const [selectedValue, setSelectedValue] = useState<string>("2"); // Initial value
-
-
-
-
-  // const handleOptionChange = (e) => {
-  //   setSelectedOption(e.target.value);
-  // };
 
   // Function to handle changes in the range
-  const handleChange = (newValues: number[]) => {
+  const setRange = (newValues: number[]) => {
     setMinValue(newValues[0]);
     setMaxValue(newValues[1]);
   };
@@ -66,7 +59,9 @@ export default function Home() {
 
   return (
     <main style={{ fontSize: '2rem', textAlign: 'center', marginTop: '2rem' }}>
-    <p className="main-number-mobile" >{random}</p>
+    <p className={`main-number-mobile ${random === -1 ? 'text-sm' : 'text-dynamic'}`} onClick={generateRandomValue}>
+      {random === -1 ? "Tap to generate" : random}
+    </p>
 
     <div className="menu-mobile">
       
@@ -74,7 +69,7 @@ export default function Home() {
         step={1}
         min={0}
         max={5}
-        onChange={handleChange}
+        onChange={setRange}
         renderTrack={({ props, children }) => (
           <div {...props} className='range-track'>
             {children}
@@ -87,26 +82,29 @@ export default function Home() {
       <div className="range-labels">
         {VALUE_STEPS.map((label, index) => (
           <span key={index} className="range-label">
-            {index}
+            {(index)}
           </span>
         ))}
       </div>
       
       <div className='buttons-mobile'>
-      <ToggleSwitch 
-        numberOne="1"
-        numberTwo="2"
-        optionOneText="Option 1 selected"
-        optionTwoText="Option 2 selected"
-        onToggleChange={generateRandomValue}  // Pass the callback
-      />
-      <ToggleSwitch 
-        numberOne="1"
-        numberTwo="2"
-        optionOneText="Option 1 selected"
-        optionTwoText="Option 2 selected"
-        onToggleChange={generateRandomValue}  // Pass the callback
-      />
+
+        <ToggleSwitch 
+          numberOne="일"
+          numberTwo="1"
+          optionOneText="Korean-to-number"
+          optionTwoText="Number-to-Korean"
+          onToggleChange={() => setNumberToKorean(1 - numberToKorean)}
+        />
+
+        <ToggleSwitch 
+          numberOne="한"
+          numberTwo="일"
+          optionOneText="Native Korean"
+          optionTwoText="Sino-Korean   "
+          onToggleChange={() => setSino(1 - sino)}  // Pass the callback
+        />
+      
       </div>
 
       
