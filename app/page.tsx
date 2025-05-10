@@ -84,7 +84,13 @@ export default function Home() {
           <div {...props} className='range-thumb'/>
         )}
       />
-      <p>Range: {VALUE_STEPS[minValue]} to {VALUE_STEPS[maxValue]}</p>
+      <div className="range-labels">
+        {VALUE_STEPS.map((label, index) => (
+          <span key={index} className="range-label">
+            {index}
+          </span>
+        ))}
+      </div>
       
       <div className='buttons-mobile'>
       <ToggleSwitch 

@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
+/* todo white theme */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #c93333;
 }
 
 @theme inline {
@@ -12,33 +13,99 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Dark theme */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+
+    --background: #333a45;
+    --foreground: #da3333;
+    --primary-color: #f44c7f;
+    --secondary-color: #939eae;
+    --text-color: #e9ecf0;
+    
+
   }
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: var(--text-color);
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .range-track {
   height: 8px;
-  background: gray;
+  background: var(--secondary-color);
   border-radius: 4px;
   width: 30%;
   margin: auto;
 }
 
 .range-thumb {
-  height: 20px;
+  height: 1.5rem;
   width: 20px;
   border-radius: 50%;
-  background-color: #007bff;
+  background-color: var(--primary-color);
 }
+
+
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.toggle-button {
+  position: relative;
+  display: inline-flex;
+  width: 3.5rem;   /* previously 2.75rem (w-11) */
+  height: 2rem;    /* previously 1.5rem (h-6) */
+  border-radius: 9999px;
+  /* transition: background-color 0.2s; */
+  outline: none;
+}
+
+
+.toggle-button.enabled {
+  background-color: var(--secondary-color);
+}
+
+.toggle-button.disabled {
+  background-color: var(--secondary-color);
+}
+
+.toggle-thumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;   /* previously 1rem */
+  height: 1.5rem;  /* previously 1rem */
+  border-radius: 9999px;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  font-size: 1rem;  
+  transition: transform 0.2s;
+  position: absolute;
+  top: 0.25rem;  /* leave as is if it still looks good */
+}
+
+
+.toggle-thumb.enabled {
+  transform: translateX(1.5rem); /* translate-x-6 */
+}
+
+.toggle-thumb.disabled {
+  transform: translateX(0.25rem); /* translate-x-1 */
+}
+
+.toggle-label {
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;    /* font-medium */
+        /* text-gray-800 */
+}
+
+
+
 
 
 /* phone layout */
@@ -65,5 +132,33 @@ body {
     gap: 1rem;
     justify-content: space-between;
   }
+
+  .range-thumb {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  .range-track {
+    height: 8px;
+    border-radius: 4px;
+    width: 90%;
+    margin: 0 auto;
+  }
+  .range-labels {
+    width: 92%;
+    justify-content: space-between;
+    display: flex;
+    margin:auto; /* ✅ Center horizontally */
+    margin-top:6px;
+    
+  }
+
+  .range-label{
+    text-align: center;
+    white-space: nowrap;
+    font-size: 0.75rem; /* make them smaller */
+  }
+
+  
 
 }
