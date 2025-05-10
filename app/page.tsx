@@ -114,18 +114,18 @@ export default function Home() {
   
     <div style={{ marginTop: '30px' }}>
 
-      <input
-          type="text"
-          placeholder="Type your answer..."
-          value={userInput}
-          onChange={handleInputChange}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              checkAnswer();
-            }
-          }}
-          style={{ fontSize: '1rem', padding: '0.5rem' }}
-        />
+    <input
+      type="text"
+      placeholder="Type your answer..."
+      value={userInput}
+      onChange={handleInputChange}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          checkAnswer();
+        }
+      }}
+      className="input-field"  /* Apply the CSS class */
+    />
         <p style={{ marginTop: '10px', color: feedback.includes('Correct') ? 'green' : 'red' }}></p>
         
     </div>

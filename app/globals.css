@@ -64,16 +64,6 @@ body {
   border-radius: 9999px;
   /* transition: background-color 0.2s; */
   outline: none;
-  
-  
-}
-
-
-.toggle-button.enabled {
-  background-color: var(--secondary-color);
-}
-
-.toggle-button.disabled {
   background-color: var(--secondary-color);
 }
 
@@ -91,6 +81,30 @@ body {
   position: absolute;
   top: 0.25rem;  /* leave as is if it still looks good */
 }
+
+
+.input-field {
+  font-size: 1rem; /* Adjust text size */
+  padding: 0.5rem; /* Adjust padding for better spacing */
+  border: 2px solid var(--text-color); /* Border with a light grey color */
+  color: var(--primary-color);
+  border-radius: 0.6rem; /* Slight rounded corners */
+  width: 80%; 
+  box-sizing: border-box; /* Includes padding and border in width calculation */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effects */
+}
+
+.input-field:focus {
+  border-color: var(--text-color); /* Green border on focus */
+  box-shadow: 0 0 10px var(--primary-color); /* Green shadow on focus */
+  outline: none; /* Removes default outline */
+}
+
+.input-field::placeholder {
+  color: var(--secondary-color); /* Lighter color for the placeholder text */
+  font-style: italic; /* Italicize placeholder text */
+}
+
 
 
 .toggle-thumb.enabled {
@@ -140,6 +154,7 @@ body {
 
   .menu-mobile .buttons-mobile{
     display: flex;
+    margin-top: 2rem;
     justify-content: space-around;
     
   }
@@ -161,7 +176,7 @@ body {
     justify-content: space-between;
     display: flex;
     margin:auto; /* ✅ Center horizontally */
-    margin-top:6px;
+    margin-top:10px;
     
   }
 
