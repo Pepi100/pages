@@ -19,8 +19,14 @@ export default function Home() {
 
   // Function to handle changes in the range
   const setRange = (newValues: number[]) => {
-    setMinValue(newValues[0]);
-    setMaxValue(newValues[1]);
+    if(newValues[0] === newValues[1]){
+      newValues[0] = minValue
+      newValues[1] = maxValue;
+    }else{
+      setMinValue(newValues[0]);
+      setMaxValue(newValues[1]);
+    }
+    
   };
 
   // Separate function to generate a new random value
@@ -137,7 +143,7 @@ export default function Home() {
           checkAnswer();
         }
       }}
-      className="input-field"  /* Apply the CSS class */
+      className="input-field"
     />
 
         <p style={{ marginTop: '10px', color: feedback.includes('Correct') ? 'green' : 'red' }}></p>
