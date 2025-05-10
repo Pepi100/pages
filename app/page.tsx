@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Range } from 'react-range';
-import { VALUE_STEPS, toSinoKorean} from './constants';
+import { VALUE_STEPS, toSinoKorean, toNativeKorean} from './constants';
 import ToggleSwitch from './components/ToggleSwitch'; // adjust path if needed
 
 
@@ -32,14 +32,27 @@ export default function Home() {
     const max = VALUE_STEPS[random_stage + 1];
   
 
-    let newRandom = old;
-    while(newRandom == old)
-      newRandom = Math.floor(Math.random() * (max - min + 1) + min);
+    let newRandomNumber = old;
+    while(newRandomNumber == old)
+      newRandomNumber = Math.floor(Math.random() * (max - min + 1) + min);
 
-    setRandom(newRandom);
+    setRandom(newRandomNumber);
 
     
   };
+
+  const getOutput = () =>{
+    if (numberToKorean === 1){
+      return random;
+    }else{
+      if(sino){
+        return toSinoKorean(random);
+      }else{
+        return toNativeKorean(random);
+      }
+
+    }
+  } 
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
@@ -60,7 +73,7 @@ export default function Home() {
   return (
     <main style={{ fontSize: '2rem', textAlign: 'center', marginTop: '2rem' }}>
     <p className={`main-number-mobile ${random === -1 ? 'text-sm' : 'text-dynamic'}`} onClick={generateRandomValue}>
-      {random === -1 ? "Tap to generate" : random}
+      {random === -1 ? "Tap to generate" : getOutput()}
     </p>
 
     <div className="menu-mobile">
@@ -115,7 +128,7 @@ export default function Home() {
     <div style={{ marginTop: '30px' }}>
 
     <input
-      type="text"
+      type= {numberToKorean === 1 ? "text" : "number"}
       placeholder="Type your answer..."
       value={userInput}
       onChange={handleInputChange}
@@ -126,6 +139,7 @@ export default function Home() {
       }}
       className="input-field"  /* Apply the CSS class */
     />
+
         <p style={{ marginTop: '10px', color: feedback.includes('Correct') ? 'green' : 'red' }}></p>
         
     </div>

@@ -27,10 +27,10 @@
   }
 }
 
-body {
-  background: var(--background);
+body{
+  margin: 0;
+  background-color: var(--background);
   color: var(--text-color);
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 .range-track {
@@ -49,12 +49,7 @@ body {
 }
 
 
-.toggle-switch {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-width: 14rem;
-}
+
 
 .toggle-button {
   position: relative;
@@ -62,7 +57,7 @@ body {
   width: 3.5rem;   /* previously 2.75rem (w-11) */
   height: 2rem;    /* previously 1.5rem (h-6) */
   border-radius: 9999px;
-  /* transition: background-color 0.2s; */
+
   outline: none;
   background-color: var(--secondary-color);
 }
@@ -71,8 +66,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 1.5rem;   /* previously 1rem */
-  height: 1.5rem;  /* previously 1rem */
+  width: 1.5rem;  
+  height: 1.5rem;  
   border-radius: 9999px;
   background-color: var(--primary-color);
   color: var(--text-color);
@@ -87,7 +82,7 @@ body {
   font-size: 1rem; /* Adjust text size */
   padding: 0.5rem; /* Adjust padding for better spacing */
   border: 2px solid var(--text-color); /* Border with a light grey color */
-  color: var(--primary-color);
+  color: var(--text-color);
   border-radius: 0.6rem; /* Slight rounded corners */
   width: 80%; 
   box-sizing: border-box; /* Includes padding and border in width calculation */
@@ -152,17 +147,9 @@ body {
     
   }
 
-  .menu-mobile .buttons-mobile{
-    display: flex;
-    margin-top: 2rem;
-    justify-content: space-around;
-    
-  }
-
   .range-thumb {
     height: 1.5rem;
     width: 1.5rem;
-    
   }
 
   .range-track {
@@ -186,6 +173,21 @@ body {
     font-size: 0.75rem; /* make them smaller */
   }
 
+  .menu-mobile .buttons-mobile{
+    display: flex;
+    margin-top: 2rem;
+    justify-content: space-around;
+    
+  }
+
+  .toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-width: 1rem;
+    margin: 0;
+    padding: 0;
+  }
   
 
 }

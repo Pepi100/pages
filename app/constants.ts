@@ -3,43 +3,43 @@
 export const VALUE_STEPS = Object.freeze([0, 10, 100, 1000, 10000, 99999]);
 
 export const SinoKoreanDict: { [key: number]: string } = {
-    0: '영',
-    1: '일',
-    2: '이',
-    3: '삼',
-    4: '사',
-    5: '오',
-    6: '육',
-    7: '칠',
-    8: '팔',
-    9: '구',
-    10: '십',
-    100: '백',
-    1000: '천',
-    10000: '만'
-  };
+  0: '영',
+  1: '일',
+  2: '이',
+  3: '삼',
+  4: '사',
+  5: '오',
+  6: '육',
+  7: '칠',
+  8: '팔',
+  9: '구',
+  10: '십',
+  100: '백',
+  1000: '천',
+  10000: '만'
+};
   
 export const NativeKoreanDict: { [key: number]: string } = {
-    1: '하나',
-    2: '둘',
-    3: '셋',
-    4: '넷',
-    5: '다섯',
-    6: '여섯',
-    7: '일곱',
-    8: '여덟',
-    9: '아홉',
-    10: '열',
-    20: '스물',
-    30: '서른',
-    40: '마흔',
-    50: '쉰',
-    60: '예순',
-    70: '일흔',
-    80: '여든',
-    90: '아흔',
-    100: '백' // Rare in native, but included for completeness
-  };
+  1: '하나',
+  2: '둘',
+  3: '셋',
+  4: '넷',
+  5: '다섯',
+  6: '여섯',
+  7: '일곱',
+  8: '여덟',
+  9: '아홉',
+  10: '열',
+  20: '스물',
+  30: '서른',
+  40: '마흔',
+  50: '쉰',
+  60: '예순',
+  70: '일흔',
+  80: '여든',
+  90: '아흔',
+  100: '백'
+};
   
 
 export function toSinoKorean(num: number): string {
@@ -62,3 +62,25 @@ export function toSinoKorean(num: number): string {
   
     return result;
   }
+
+export function toNativeKorean(num: number): string {
+  if (num <= 10) {
+    return NativeKoreanDict[num] || String(num);
+  }
+
+  let result = '';
+
+  // Handle tens (20, 30, etc.)
+  const tens = Math.floor(num / 10) * 10;
+  if (tens > 0) {
+    result += NativeKoreanDict[tens];
+  }
+
+  // Handle ones (1–9)
+  const ones = num % 10;
+  if (ones > 0) {
+    result += NativeKoreanDict[ones];
+  }
+
+  return result;
+}
