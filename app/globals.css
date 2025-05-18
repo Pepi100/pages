@@ -121,11 +121,11 @@ body{
 
 
 .toggle-thumb.enabled {
-  transform: translateX(1.5rem); /* translate-x-6 */
+  transform: translateX(1.75rem); 
 }
 
 .toggle-thumb.disabled {
-  transform: translateX(0.25rem); /* translate-x-1 */
+  transform: translateX(0.25rem);
 }
 
 .toggle-label {
@@ -235,7 +235,7 @@ body{
     left: 0;
     height: 100vh;
     width: 300px;
-    padding: 2rem 1rem;
+    padding:1rem;
     background-color: var(--background);
     color: var(--text-color);
     border-right: 2px solid var(--secondary-color);
