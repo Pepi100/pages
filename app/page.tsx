@@ -78,79 +78,73 @@ export default function Home() {
 
   return (
     <main style={{ fontSize: '2rem', textAlign: 'center', marginTop: '2rem' }}>
-    <p className={`main-number-mobile ${random === -1 ? 'text-sm' : 'text-dynamic'}`} onClick={generateRandomValue}>
-      {random === -1 ? "Tap to generate" : getOutput()}
-    </p>
+      <div className="layout-container">
+        <p className={`main-number-mobile ${random === -1 ? 'text-sm' : 'text-dynamic'}`} onClick={generateRandomValue}>
+          {random === -1 ? "Tap to generate" : getOutput()}
+        </p>
 
-    <div className="menu-mobile">
-      
-      <Range values={[minValue, maxValue]}
-        step={1}
-        min={0}
-        max={5}
-        onChange={setRange}
-        renderTrack={({ props, children }) => (
-          <div {...props} className='range-track'>
-            {children}
+        <div className="menu-mobile">
+          <p className="settings-label" >Settings:</p>
+          <Range values={[minValue, maxValue]}
+            step={1}
+            min={0}
+            max={5}
+            onChange={setRange}
+            renderTrack={({ props, children }) => (
+              <div {...props} className='range-track'>
+                {children}
+              </div>
+            )}  
+            renderThumb={({ props }) => (
+              <div {...props} className='range-thumb'/>
+            )}
+          />
+          <div className="range-labels">
+            {VALUE_STEPS.map((label, index) => (
+              <span key={index} className="range-label">
+                {(index)}
+              </span>
+            ))}
           </div>
-        )}  
-        renderThumb={({ props }) => (
-          <div {...props} className='range-thumb'/>
-        )}
-      />
-      <div className="range-labels">
-        {VALUE_STEPS.map((label, index) => (
-          <span key={index} className="range-label">
-            {(index)}
-          </span>
-        ))}
-      </div>
-      
-      <div className='buttons-mobile'>
-
-        <ToggleSwitch 
-          numberOne="일"
-          numberTwo="1"
-          optionOneText="Korean-to-number"
-          optionTwoText="Number-to-Korean"
-          onToggleChange={() => setNumberToKorean(1 - numberToKorean)}
-        />
-
-        <ToggleSwitch 
-          numberOne="한"
-          numberTwo="일"
-          optionOneText="Native Korean"
-          optionTwoText="Sino-Korean   "
-          onToggleChange={() => setSino(1 - sino)}  // Pass the callback
-        />
-      
-      </div>
-
-      
-    </div>
-  
-      
-  
-    <div style={{ marginTop: '30px' }}>
-
-    <input
-      type= {numberToKorean === 1 ? "text" : "number"}
-      placeholder="Type your answer..."
-      value={userInput}
-      onChange={handleInputChange}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-          checkAnswer();
-        }
-      }}
-      className="input-field"
-    />
-
-        <p style={{ marginTop: '10px', color: feedback.includes('Correct') ? 'green' : 'red' }}></p>
         
-    </div>
+          <div className='buttons-mobile'>
+
+            <ToggleSwitch 
+              numberOne="일"
+              numberTwo="1"
+              optionOneText="Korean-to-number"
+              optionTwoText="Number-to-Korean"
+              onToggleChange={() => setNumberToKorean(1 - numberToKorean)}
+            />
+
+            <ToggleSwitch 
+              numberOne="한"
+              numberTwo="일"
+              optionOneText="Native Korean"
+              optionTwoText="Sino-Korean   "
+              onToggleChange={() => setSino(1 - sino)}  // Pass the callback
+            />
+          
+          </div>        
+        </div>
+      </div>
   
-  </main>
+      <div style={{ marginTop: '30px' }}>
+        <input
+          type= {numberToKorean === 1 ? "text" : "number"}
+          placeholder="Type your answer..."
+          value={userInput}
+          onChange={handleInputChange}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              checkAnswer();
+            }
+          }}
+          className="input-field"
+        />
+        <p style={{ marginTop: '10px', color: feedback.includes('Correct') ? 'green' : 'red' }}></p>
+      </div>
+    </main>
   
   );
 }
