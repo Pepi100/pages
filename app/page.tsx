@@ -12,19 +12,28 @@ export default function Home() {
   const [random, setRandom] = useState(-1);
 
   const [sino, setSino] = useState(1);
-  const [numberToKorean, setNumberToKorean] = useState(1);
+  const [numberToKorean, setNumberToKorean] = useState(0);
 
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
+  const [feedbackStatus, setFeedbackStatus] = useState(0);
 
   // Function to handle changes in the range
   const setRange = (newValues: number[]) => {
     if(newValues[0] === newValues[1]){
-      newValues[0] = minValue
+      newValues[0] = minValue;
       newValues[1] = maxValue;
     }else{
-      setMinValue(newValues[0]);
-      setMaxValue(newValues[1]);
+      if(sino == 1){
+        setMinValue(newValues[0]);
+        setMaxValue(newValues[1]);
+      }else{
+        const nv1 = Math.min(1, newValues[0]);
+        const nv2 = Math.min(2, newValues[1]); 
+        setMinValue(nv1);
+        setMaxValue(nv2);
+      }
+      
     }
     
   };
@@ -43,6 +52,10 @@ export default function Home() {
       newRandomNumber = Math.floor(Math.random() * (max - min + 1) + min);
 
     setRandom(newRandomNumber);
+
+    setUserInput("");
+    setFeedback("");
+    setFeedbackStatus(0);
 
     
   };
@@ -66,13 +79,37 @@ export default function Home() {
   
 
   const checkAnswer = () => {
-    
-    const input_format = userInput.replace(/\s+/g, '');
-    if(toSinoKorean(random) == input_format )
-      setFeedback('Correct!');
-    else{
-      setFeedback('Incorrect, the answer was ' + toSinoKorean(random))
+
+    if(feedbackStatus == 0){
+      const input_format = userInput.replace(/\s+/g, '');
+      if (numberToKorean === 1){
+        if(sino){
+          if(toSinoKorean(random) == input_format)
+            setFeedback('Correct!');
+          else
+            setFeedback('Incorrect, the answer was ' + toSinoKorean(random) +'.');
+        }else{
+          if(toNativeKorean(random) == input_format)
+            setFeedback('Correct!');
+          else
+            setFeedback('Incorrect, the answer was ' + toNativeKorean(random)+'.')
+        }
+      }else{
+        const number = Number(input_format)
+        if(random == number)
+          setFeedback('Correct!');
+        else
+          setFeedback('Incorrect, the answer was ' + random);
+      }
+      setFeedbackStatus(1);
+    }else{
+      setUserInput("");
+      generateRandomValue();
+      setFeedback("");
+      setFeedbackStatus(0);
     }
+
+
   
   };
 
@@ -85,6 +122,7 @@ export default function Home() {
 
         <div className="menu-mobile">
           <p className="settings-label" >Settings:</p>
+          <p className="ranges-label" >Number range:</p>
           <Range values={[minValue, maxValue]}
             step={1}
             min={0}
@@ -100,20 +138,24 @@ export default function Home() {
             )}
           />
           <div className="range-labels">
-            {VALUE_STEPS.map((label, index) => (
-              <span key={index} className="range-label">
-                {(index)}
-              </span>
+            {["0", "10", "100", "1000", "10000", "99999"].map((label, index) => (
+              <div key={index} className="range-label" style={{ textAlign: "center",
+                  flex: 1,
+                  opacity: sino == 0 && index > 2 ? 0.3 : 1, // gray out if not allowed
+                  pointerEvents: "none", }}>
+                <div style={{ fontSize: "0.5rem", lineHeight: "0.3rem", marginTop: "0.5rem" }}>|</div> {/* Tick mark */}
+                <div style={{ fontSize: "0.4em", marginTop: "0.5rem" }}>{label}</div> {/* Small label */}
+              </div>
             ))}
           </div>
         
           <div className='buttons-mobile'>
 
             <ToggleSwitch 
-              numberOne="일"
-              numberTwo="1"
-              optionOneText="Korean-to-number"
-              optionTwoText="Number-to-Korean"
+              numberOne="1"
+              numberTwo="일"
+              optionOneText="Number-to-Korean"
+              optionTwoText="Korean-to-number"
               onToggleChange={() => setNumberToKorean(1 - numberToKorean)}
             />
 
@@ -121,8 +163,8 @@ export default function Home() {
               numberOne="한"
               numberTwo="일"
               optionOneText="Native Korean"
-              optionTwoText="Sino-Korean   "
-              onToggleChange={() => setSino(1 - sino)}  // Pass the callback
+              optionTwoText="Sino-Korean"
+              onToggleChange={() => {if(sino == 1) setRange([Math.min(1, minValue), Math.min(2, maxValue)]); setSino(1 - sino); }}  // Pass the callback
             />
           
           </div>        
@@ -142,7 +184,7 @@ export default function Home() {
           }}
           className="input-field"
         />
-        <p style={{ marginTop: '10px', color: feedback.includes('Correct') ? 'green' : 'red' }}></p>
+        <p style={{ marginTop: '10px', color: feedback.includes('Correct') ? 'green' : 'red' }}>{feedback}</p>
       </div>
     </main>
   

@@ -20,6 +20,7 @@ export const SinoKoreanDict: { [key: number]: string } = {
 };
   
 export const NativeKoreanDict: { [key: number]: string } = {
+  0: '영',
   1: '하나',
   2: '둘',
   3: '셋',
@@ -49,11 +50,11 @@ export function toSinoKorean(num: number): string {
     let pow = 1;
     while(num > 0){
         if(num % 10 >= 1){
-            if(pow > 1)
+            if(pow > 1 || (pow == 1 && num % 10 == 1))
                 result = SinoKoreanDict[pow] + result;
-            if(num % 10 > 1)
-                // console.log(num%10)
+            if(num % 10 > 1)   
                 result = SinoKoreanDict[num % 10] + result;
+
         }
         num = Math.floor(num / 10); // wtf javascript
         pow*=10;
@@ -71,7 +72,7 @@ export function toNativeKorean(num: number): string {
   let result = '';
 
   // Handle tens (20, 30, etc.)
-  const tens = Math.floor(num / 10) * 10;
+  const tens = Math.floor(num / 10 % 10) * 10;
   if (tens > 0) {
     result += NativeKoreanDict[tens];
   }

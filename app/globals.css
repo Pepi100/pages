@@ -36,6 +36,9 @@ body{
 .settings-label {
   display: none;
 }
+.ranges-label{
+  font-size: none;
+}
 
 
 .range-track {
@@ -44,6 +47,7 @@ body{
   border-radius: 4px;
   width: 90%;
   margin: auto;
+  margin-top: 0.5rem;
 }
 
 .range-thumb {
@@ -140,11 +144,12 @@ body{
   }
 
 .range-labels {
-    width: 92%;
+    width: 108%;
     justify-content: space-between;
     display: flex;
-    margin:auto; /* ✅ Center horizontally */
-    
+    /* margin:auto; ✅ Center horizontally */
+    margin-left: -4%;
+    /* box-sizing: border-box; */
   }
   
 
@@ -219,11 +224,12 @@ body{
 
 }
 
-  .toggle-switch {
-    gap: 0.3rem;
-    min-width: 1rem;
-    margin-top: 0.5rem;
-  }
+.toggle-switch {
+  gap: 0.3rem;
+  min-width: 1rem;
+  margin-top: 0.5rem;
+}
+
 
 
 
@@ -247,11 +253,19 @@ body{
     justify-content: flex-start; /* or 'space-between' if you want bottom-aligned elements too */
   }
 
+  .ranges-label {
+    display: block;
+    font-size: small;
+    margin-top: 1rem;
+    margin-bottom: 0.2rem;
+  }
+
   .settings-label {
     display: block;
   }
 
   .buttons-mobile {
+    margin-top: 1rem;
     display:block;
     flex-direction: column;
     /* margin-top: auto; */
